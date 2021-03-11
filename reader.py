@@ -52,12 +52,12 @@ class Map(object):
         sum = 0
         distances = spatial.distance.cdist(self.coordinateBuildings, self.coordinateAntenne, metric = 'cityblock')
         for i, antenna in enumerate(self.antenne):
-            print(f'{i*100/self.m}% completato')
+            #print(f'{i*100/self.m}% completato')
             indici = np.argwhere(distances[:, i] <= antenna.range)
             for j in indici:
                 self.buildings[int(j)].connectedAntenne.add(antenna)
         for building in self.buildings:
-            print(f'{i*100/self.n}% completato')
+            #print(f'{i*100/self.n}% completato')
             maxScore = 0
             if len(building.connectedAntenne) == 0:
                 reward = False
