@@ -1,3 +1,5 @@
+import math
+
 class Building(object):
 
     def __init__(self, row):
@@ -43,8 +45,13 @@ class Map(object):
         sum = 0
         for building in self.buildings:
             maxScore = 0
+            if len(building.connectedAntenne) == 0:
+                reward = False
             for antenna in building.connectedAntenne:
                 scor = score(antenna, building)
                 if scor > maxScore:
                     maxScore = scor
             sum += maxScore
+        if reward:
+            sum += self.reward
+        return sum
