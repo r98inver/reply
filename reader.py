@@ -31,16 +31,16 @@ class Map(object):
         antenna.x = x
         antenna.y = y
         for building in self.buildings:
-            if dist(antenna, building) <= antenna.range:
+            if self.dist(antenna, building) <= antenna.range:
                 building.connectedAntenne.append(antenna)
 
     def dist(antenna, building):
         return abs(antenna.x - building.x) + abs(antenna.y - building.y)
 
     def score(antenna, building):
-        return building.sweight * antenna.speed - dist(antenna, building) * building.lweight
+        return building.sweight * antenna.speed - self.dist(antenna, building) * building.lweight
 
-    def score(self):
+    def tscore(self):
         reward = True
         sum = 0
         for building in self.buildings:
@@ -48,7 +48,7 @@ class Map(object):
             if len(building.connectedAntenne) == 0:
                 reward = False
             for antenna in building.connectedAntenne:
-                scor = score(antenna, building)
+                scor = self.score(antenna, building)
                 if scor > maxScore:
                     maxScore = scor
             sum += maxScore
