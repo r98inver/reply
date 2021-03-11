@@ -12,6 +12,8 @@ class Antenna(object):
 
     def __init__(self, row):
         self.range, self.speed = list(map(int, row.split(' ')))
+        self.x = 0
+        self.y = 0
 
 class Map(object):
 
