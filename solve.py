@@ -8,11 +8,11 @@ def main():
     for f in filenames:
         bestScore = 0
         m = Map(f'{f}.in')
-        used_pos = set()
+        Old_used_pos = set()
         cluster = 100
         for k in range(len(m.antenne) // cluster + 1):
             for j in range(50):
-
+                used_pos = Old_used_pos.copy()
                 a = m.width-1
                 b = m.heigth-1
 
@@ -24,11 +24,12 @@ def main():
                     p = (randint(0,a), randint(0,b))
                     while p in used_pos:
                         p = (randint(0,a), randint(0,b))
+                    used_pos.add(p)
                     m.setAntennaXY(i, p[0], p[1])
 
                 score = m.tscore()
                 if score > bestScore:
-                    used_pos.add(p)
+                    Old_used_pos = used_pos
                     bestScore = score
                     writesol(f'{f}.out', m)
                     m.save('mappa'+f+'.txt')
