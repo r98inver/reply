@@ -7,6 +7,7 @@ def main():
 
 	for f in filenames:
 		m = Map(f'{f}.in')
+		l = len(m.antenne)
 
 		used_pos = set()
 
@@ -14,6 +15,7 @@ def main():
 		b = m.heigth-1
 
 		for i,ant in enumerate(m.antenne):
+			print(f'{i*100/l}% completato')
 			p = (randint(0,a), randint(0,b))
 			while p in used_pos:
 				p = (randint(0,a), randint(0,b))

@@ -8,7 +8,7 @@ def writesol(outfile, M):
 	out += f'{len(ant)}\n'
 
 	for i,a in enumerate(ant):
-		out += f'{i} {a.x} {a.y}'
+		out += f'{i} {a.x} {a.y}\n'
 
 	with open(outfile, 'w') as o:
 		o.write(out)
