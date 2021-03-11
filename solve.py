@@ -1,42 +1,36 @@
 from reader import *
 from writer import *
 from random import randint
-from multiprocessing import Pool
-
 
 def main():
-	filenames = ['a']
+    filenames = ['a']
 
-	for f in filenames:
-		m = Map(f'{f}.in')
-		l = len(m.antenne)
+    for f in filenames:
+        bestScore = 0
+        for _ in range(100000):
+            m = Map(f'{f}.in')
+            l = len(m.antenne)
 
-		global parall
-		def parall(x):
-			m.setAntennaXY(x[0], x[1], x[2])
+            used_pos = set()
 
-		a = m.width-1
-		b = m.heigth-1
+            a = m.width-1
+            b = m.heigth-1
 
-		used_pos = set()
-		for i in range(l):
-			p = (randint(0,a), randint(0,b))
-			while p in used_pos:
-				p = (randint(0,a), randint(0,b))
-			used_pos.add(p)
+            for i,ant in enumerate(m.antenne):
+                p = (randint(0,a), randint(0,b))
+                while p in used_pos:
+                    p = (randint(0,a), randint(0,b))
+                used_pos.add(p)
+                m.setAntennaXY(i, p[0], p[1])
 
-		ls = list(used_pos)
-		ls1 = [(i, j[0], j[1]) for i,j in enumerate(ls)]
-		
-		pool = Pool()
-	    foo[1] = pool.map(parall, ls1)
-	    pool.close()
-	    pool.join()
+            score = m.tscore()
+            if score > bestScore:
+                bestScore = score
+                writesol(f'{f}.out', m)
+                m.save('mappa'+f+'.txt')
+                print('New best score: ', bestScore)
 
-		writesol(f'{f}.out', m)
-	
 
-		
 
 
 if __name__ == '__main__':
