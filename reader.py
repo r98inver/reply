@@ -37,9 +37,9 @@ class Map(object):
         antenna.x = x
         antenna.y = y
         self.coordinateAntenne[id, :] = [x,y]
-        # for building in self.buildings:
-        #     if self.dist(antenna, building) <= antenna.range:
-        #         building.connectedAntenne.append(antenna)
+        #for building in self.buildings:
+            #if self.dist(antenna, building) <= antenna.range:
+                #building.connectedAntenne.append(antenna)
 
     def dist(self, antenna, building):
         return abs(antenna.x - building.x) + abs(antenna.y - building.y)

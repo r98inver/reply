@@ -3,7 +3,7 @@ from writer import *
 from random import randint
 
 def main():
-    filenames = ['c']
+    filenames = ['c', 'e','f']
 
     for f in filenames:
         m = Map(f'{f}.in')
