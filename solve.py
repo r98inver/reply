@@ -9,9 +9,9 @@ def main():
         bestScore = 0
         m = Map(f'{f}.in')
         Old_used_pos = set()
-        cluster = 100
+        cluster = 500
         for k in range(len(m.antenne) // cluster + 1):
-            for j in range(50):
+            for j in range(10):
                 used_pos = Old_used_pos.copy()
                 a = m.width-1
                 b = m.heigth-1
@@ -25,7 +25,7 @@ def main():
                     while p in used_pos:
                         p = (randint(0,a), randint(0,b))
                     used_pos.add(p)
-                    m.setAntennaXY(i, p[0], p[1])
+                    m.setAntennaXY(k*cluster + i, p[0], p[1])
 
                 score = m.tscore()
                 if score > bestScore:
