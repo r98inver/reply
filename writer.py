@@ -2,10 +2,10 @@ def writesol(outfile, M):
 	# Prima riga numero di antenne
 	# id x y
 
-	ant = Map.antenne
+	ant = M.antenne
 	out = ''
 
-	out += len(ant)+'\n'
+	out += f'{len(ant)}\n'
 
 	for i,a in enumerate(ant):
 		out += f'{i} {a.x} {a.y}'
