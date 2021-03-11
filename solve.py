@@ -3,34 +3,36 @@ from writer import *
 from random import randint
 
 def main():
-    filenames = ['b']
+    filenames = ['d']
 
     for f in filenames:
         bestScore = 0
-        for _ in range(100000):
-            m = Map(f'{f}.in')
-            l = len(m.antenne)
+        m = Map(f'{f}.in')
+        used_pos = set()
+        cluster = 100
+        for k in range(len(m.antenne) // cluster + 1):
+            for j in range(50):
 
-            used_pos = set()
+                a = m.width-1
+                b = m.heigth-1
 
-            a = m.width-1
-            b = m.heigth-1
-
-            for i,ant in enumerate(m.antenne):
-                p = (randint(0,a), randint(0,b))
-                while p in used_pos:
+                if (k+1)*cluster >= len(m.antenne):
+                    b = len(m.antenne)
+                else:
+                    b = (k+1)*cluster
+                for i,ant in enumerate(m.antenne[k*cluster:b]):
                     p = (randint(0,a), randint(0,b))
-                used_pos.add(p)
-                m.setAntennaXY(i, p[0], p[1])
+                    while p in used_pos:
+                        p = (randint(0,a), randint(0,b))
+                    m.setAntennaXY(i, p[0], p[1])
 
-            score = m.tscore()
-            if score > bestScore:
-                bestScore = score
-                writesol(f'{f}.out', m)
-                m.save('mappa'+f+'.txt')
-                print('New best score: ', bestScore)
-
-
+                score = m.tscore()
+                if score > bestScore:
+                    used_pos.add(p)
+                    bestScore = score
+                    writesol(f'{f}.out', m)
+                    m.save('mappa'+f+'.txt')
+                    print('New best score: ', bestScore, ' iterazione numero ', j, 'cluster numero ', k)
 
 
 if __name__ == '__main__':
