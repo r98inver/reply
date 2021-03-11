@@ -2,6 +2,7 @@ class Building(object):
 
     def __init__(self, row):
         self.x, self.y, self.lweight, self.sweight = list(map(int, row.split(' ')))
+        self.connectedAntenne = []
 
 class Antenna(object):
 
@@ -22,3 +23,28 @@ class Map(object):
         self.antenne = []
         for i in range(self.m):
             self.antenne.append(Antenna(righe[2+self.n+i]))
+
+    def setAntennaXY(self, id, x, y):
+        antenna = self.antenne[id]
+        antenna.x = x
+        antenna.y = y
+        for building in self.buildings:
+            if dist(antenna, building) <= antenna.range:
+                building.connectedAntenne.append(antenna)
+
+    def dist(antenna, building):
+        return abs(antenna.x - building.x) + abs(antenna.y - building.y)
+
+    def score(antenna, building):
+        return building.sweight * antenna.speed - dist(antenna, building) * building.lweight
+
+    def score(self):
+        reward = True
+        sum = 0
+        for building in self.buildings:
+            maxScore = 0
+            for antenna in building.connectedAntenne:
+                scor = score(antenna, building)
+                if scor > maxScore:
+                    maxScore = scor
+            sum += maxScore
