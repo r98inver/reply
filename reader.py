@@ -34,10 +34,10 @@ class Map(object):
             if self.dist(antenna, building) <= antenna.range:
                 building.connectedAntenne.append(antenna)
 
-    def dist(antenna, building):
+    def dist(self, antenna, building):
         return abs(antenna.x - building.x) + abs(antenna.y - building.y)
 
-    def score(antenna, building):
+    def score(self, antenna, building):
         return building.sweight * antenna.speed - self.dist(antenna, building) * building.lweight
 
     def tscore(self):
