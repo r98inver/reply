@@ -11,6 +11,7 @@ def main():
 		m = Map(f'{f}.in')
 		l = len(m.antenne)
 
+		global parall
 		def parall(x):
 			m.setAntennaXY(x[0], x[1], x[2])
 
@@ -27,9 +28,10 @@ def main():
 		ls = list(used_pos)
 		ls1 = [(i, j[0], j[1]) for i,j in enumerate(ls)]
 		
-		with Pool(5) as p:
-			p.map(parall, ls1)
-
+		pool = Pool()
+	    foo[1] = pool.map(parall, ls1)
+	    pool.close()
+	    pool.join()
 
 		writesol(f'{f}.out', m)
 	
