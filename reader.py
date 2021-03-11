@@ -1,4 +1,4 @@
-import math
+import pickle
 
 class Building(object):
 
@@ -55,3 +55,9 @@ class Map(object):
         if reward:
             sum += self.reward
         return sum
+     
+    def save(self, filename):
+        f = open(filename,"wb")
+        pickle.dump(self,f)
+        f.close()
+    
