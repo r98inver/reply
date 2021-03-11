@@ -3,7 +3,7 @@ from writer import *
 from random import randint
 
 def main():
-    filenames = ['b']
+    filenames = ['d']
 
     for f in filenames:
         bestScore = 0
