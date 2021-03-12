@@ -35,6 +35,7 @@ def main():
 
                 score = m.tscore()
                 if score > bestScore:
+                    best_used = tmp_used
                     best_antenne = tmp_antenne
                     bestScore = score
                     #writesol(f'{f}.out', m)
